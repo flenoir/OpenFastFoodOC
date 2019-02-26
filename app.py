@@ -1,4 +1,13 @@
 import requests
+from peewee import *
+
+# Connect to a MySQL database on network.
+db = MySQLDatabase('foodstuff', user='root', password='', host='localhost', port=3306)
+						 
+# select all elements on category table
+categories = db.execute_sql("SELECT * from category;")
+
+
 
 # # response = requests.get("https://fr.openfoodfacts.org/categories.json").json()
 # response = requests.get("https://fr.openfoodfacts.org/products/categories.json").json()
@@ -33,8 +42,13 @@ print("------------------------------------------------------------------")
 print("             Choisissez ce que vous voulez faire                  ")
 print("                                                                  ")
 print("           1 - Selectionnez un aliment à remplacer                ")
-print("           2 - Consulter la liste de voos aliments remplacés      ")
+print("           2 - Consulter la liste de vos aliments remplacés      ")
 print("                                                                  ")
 print("------------------------------------------------------------------")
 selected = input("=> ")
-print(selected)
+# print(selected)
+if selected == str(1):
+	for item in categories:
+		print(item[0], item[1])
+else:
+	print("not 1")
