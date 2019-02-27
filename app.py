@@ -1,5 +1,6 @@
 import requests
 from peewee import *
+from classes import Board
 
 # Connect to a MySQL database on network.
 db = MySQLDatabase('foodstuff', user='root', password='', host='localhost', port=3306)
@@ -36,15 +37,21 @@ categories = db.execute_sql("SELECT * from category;")
 # photo du produit : image_ingredients_url ou image_nutrition_small_url
 # score nutritionnel du produit : nutrition_grades
 
-print("------------------------------------------------------------------")
-print("                  Bienvenue sur Food Swap                         ")
-print("------------------------------------------------------------------")
-print("             Choisissez ce que vous voulez faire                  ")
-print("                                                                  ")
-print("           1 - Selectionnez un aliment à remplacer                ")
-print("           2 - Consulter la liste de vos aliments remplacés      ")
-print("                                                                  ")
-print("------------------------------------------------------------------")
+# print("------------------------------------------------------------------")
+# print("                  Bienvenue sur Food Swap                         ")
+# print("------------------------------------------------------------------")
+# print("             Choisissez ce que vous voulez faire                  ")
+# print("                                                                  ")
+# print("           1 - Selectionnez un aliment à remplacer                ")
+# print("           2 - Consulter la liste de vos aliments remplacés       ")
+# print("                                                                  ")
+# print("------------------------------------------------------------------")
+
+intro = Board("Choisissez ce que vous voulez faire", "1 - Selectionnez un aliment à remplacer", "2 - Consulter la liste de vos aliments remplacés" )
+
+intro.display()
+
+
 selected = input("=> ")
 # print(selected)
 if selected == str(1):
@@ -52,3 +59,6 @@ if selected == str(1):
 		print(item[0], item[1])
 else:
 	print("not 1")
+
+answer = input("select category => ")
+print(answer)
