@@ -1,0 +1,1 @@
+CATEGORIES_ARRAY = ['petit-dejeuners', 'plats-prepares', 'snacks', 'biscuits-et-gateaux', 'pizzas', 'produits-laitiers', 'epicerie', 'desserts', 'charcuteries', 'cereales-et-derives' ]

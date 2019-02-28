@@ -1,6 +1,7 @@
 import requests
 from peewee import *
-from classes import Board
+from classes import Board, Categories, Products
+from constants import CATEGORIES_ARRAY
 
 # Connect to a MySQL database on network.
 db = MySQLDatabase('foodstuff', user='root', password='', host='localhost', port=3306)
@@ -61,4 +62,9 @@ else:
 	print("not 1")
 
 answer = input("select category => ")
-print(answer)
+print("answer is {} corresponding to category : {}".format(answer, CATEGORIES_ARRAY[int(answer)-1] ))
+
+cat_foods = Products.select().where(Products.category == str(CATEGORIES_ARRAY[int(answer)-1])).limit(10)
+
+for food in cat_foods:
+	print(' - {} from brand : {}'.format(food.product_name, food.brands))
