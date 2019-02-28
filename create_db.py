@@ -1,32 +1,49 @@
 import requests
-# from peewee import *
-from classes import Board
+from classes import Board, Categories, Products
 import peewee
 
 # Connect to a MySQL database on network.
 db = peewee.MySQLDatabase('foodstuff', user='root', password='', host='localhost', port=3306)
-						 
+
+# # We define a first class for categories
+# class Categories(peewee.Model):
+#     # We specify model fields
+#     name = peewee.CharField(40)
+
+#     class Meta:
+#         database = db
+#         db_table = "category"
+
+# The table is created from a model with create_table()
+Categories.create_table()				 
 
 
-# We define a db model called Products
-class Products(peewee.Model):
-    # We specify the model fields
-    product_name = peewee.CharField(40)
-    brands = peewee.CharField(40, null=True)
-    description = peewee.CharField(50, null=True)
-    product_url = peewee.CharField(100, null=True)
-    product_code = peewee.CharField(20, null=True)
-    product_image = peewee.CharField(100, null=True)
-    nutriscore = peewee.CharField(1, null=True)
-    category = peewee.CharField(30)
+# # We define a db model called Products
+# class Products(peewee.Model):
+#     # We specify the model fields
+#     product_name = peewee.CharField(40)
+#     brands = peewee.CharField(40, null=True)
+#     description = peewee.CharField(50, null=True)
+#     product_url = peewee.CharField(100, null=True)
+#     product_code = peewee.CharField(20, null=True)
+#     product_image = peewee.CharField(100, null=True)
+#     nutriscore = peewee.CharField(1, null=True)
+#     category = peewee.CharField(30)
 
-    # we define the reference to the database and the database table name
-    class Meta:
-        database = db
-        db_table = "products"
+#     # we define the reference to the database and the database table name
+#     class Meta:
+#         database = db
+#         db_table = "products"
 
-# The table is created from a model with create_table(
+# The table is created from a model with create_table()
 Products.create_table()
+
+categories_array = ['petit-dejeuners', 'plats-prepares', 'snacks', 'biscuits-et-gateaux', 'pizzas', 'produits-laitiers', 'epicerie', 'desserts', 'charcuteries', 'cereales-et-derives' ]                                            
+
+
+for item in categories_array:
+    item = Categories.create(name=item)
+    item.save()
 
 # # We create a new instance and save it
 # product1 = Products.create(product_name='Poulain', brands='Nestlé')
