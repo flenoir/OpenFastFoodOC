@@ -65,6 +65,14 @@ answer = input("select category => ")
 print("answer is {} corresponding to category : {}".format(answer, CATEGORIES_ARRAY[int(answer)-1] ))
 
 cat_foods = Products.select().where(Products.category == str(CATEGORIES_ARRAY[int(answer)-1])).limit(10)
+cat_foods_length = Products.select().where(Products.category == str(CATEGORIES_ARRAY[int(answer)-1]))
+length = len(cat_foods_length)
+print(length)
 
-for food in cat_foods:
-	print(' - {} from brand : {}'.format(food.product_name, food.brands))
+def list_food_from_category(cat_foods):
+	for index, food in enumerate(cat_foods):
+		print('{} - {} '.format(index, food.product_name))
+	food_selection = input('choose a product number or presss spacebar to see the other products => ')
+	return food_selection
+
+print(list_food_from_category(cat_foods))

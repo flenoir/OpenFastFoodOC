@@ -23,7 +23,7 @@ for item in categories_array:
 # product1.save()
 
 # we get id and name from categories 
-def fill_db_from categories(cat):
+def fill_db_from_categories(cat):
     for index, value in enumerate(cat):
 
         temp_var = "var" + str(index)
@@ -32,10 +32,10 @@ def fill_db_from categories(cat):
 
         for x, i in enumerate(temp_var['products']):
             try :
-                x = Products.create(product_name=i['product_name_fr'], brands=i['brands'], description=i['generic_name_fr'], product_url=i['url'] ,product_code=i['code'], product_image=i['image_ingredients_url'] , nutriscore=i['nutrition_grades'], category=str(value))
+                x = Products.create(product_name=i['product_name_fr'], brands=i['brands'], description=i['generic_name_fr'], product_url=i['url'] ,product_code=i['code'], product_image=i['image_ingredients_url'] , nutriscore=i['nutrition_grades'], stores=i['stores_tags'], category=str(value))
                 x.save()
             except:
                 print("one item was not found")
 
 
-fill_db_from categories(categories_array)
+fill_db_from_categories(categories_array)
