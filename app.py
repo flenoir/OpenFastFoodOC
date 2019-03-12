@@ -1,78 +1,32 @@
 import requests
 from peewee import *
 from classes import Board, Categories, Products
-from constants import CATEGORIES_ARRAY
+from constants import CATEGORIES_ARRAY, INTRO_TEXT
 
-# Connect to a MySQL database on network.
-db = MySQLDatabase('foodstuff', user='root', password='', host='localhost', port=3306)
-						 
-# select all elements on category table
-categories = db.execute_sql("SELECT * from category;")
+intro = Board("Choisissez ce que vous voulez faire")
 
+intro.display(INTRO_TEXT)
 
-
-# # response = requests.get("https://fr.openfoodfacts.org/categories.json").json()
-# response = requests.get("https://fr.openfoodfacts.org/products/categories.json").json()
-
-# for i in response['tags']:
-#     print("Le nom de la catégorie est : {}".format(i['name']))
-
-
-# response2 = requests.get("https://fr.openfoodfacts.org/products/categories?query=popcorn")
-# response2 = requests.get("https://fr.openfoodfacts.org/categorie/lentilles-vertes-bio.json").json()
-## response2 = requests.get("https://fr.openfoodfacts.org/categorie/lentilles/1.json").json()
-
-# print(response2.json())
-
-# for i in response2['products']:
-#     print("Le nom du produit est {} de la marque {}".format(i['product_name_fr'],i['brands']))
-#     print("Le code du produit est {} et il a un score nutritionnel : {}".format(i['code'],i['nutrition_grades']))
-
-
-
-# nom du produit : product_name_fr
-# nom de la marque : brands
-# descritpion : generic_name_fr
-# url du produit : url
-# code produit : code
-# photo du produit : image_ingredients_url ou image_nutrition_small_url
-# score nutritionnel du produit : nutrition_grades
-
-# print("------------------------------------------------------------------")
-# print("                  Bienvenue sur Food Swap                         ")
-# print("------------------------------------------------------------------")
-# print("             Choisissez ce que vous voulez faire                  ")
-# print("                                                                  ")
-# print("           1 - Selectionnez un aliment à remplacer                ")
-# print("           2 - Consulter la liste de vos aliments remplacés       ")
-# print("                                                                  ")
-# print("------------------------------------------------------------------")
-
-intro = Board("Choisissez ce que vous voulez faire", "1 - Selectionnez un aliment à remplacer", "2 - Consulter la liste de vos aliments remplacés" )
-
-intro.display()
-
-
-selected = input("=> ")
-# print(selected)
-if selected == str(1):
-	for item in categories:
-		print(item[0], item[1])
+if intro.get_input("number") == str(0):
+	# intro.list_datas(CATEGORIES_ARRAY)
+	intro.display(CATEGORIES_ARRAY)
 else:
-	print("not 1")
+	print("not 0")
 
-answer = input("select category => ")
-print("answer is {} corresponding to category : {}".format(answer, CATEGORIES_ARRAY[int(answer)-1] ))
+answer = intro.get_input("category")
 
-cat_foods = Products.select().where(Products.category == str(CATEGORIES_ARRAY[int(answer)-1])).limit(10)
-cat_foods_length = Products.select().where(Products.category == str(CATEGORIES_ARRAY[int(answer)-1]))
+cat_foods = Products.select().where(Products.category == str(CATEGORIES_ARRAY[int(answer)])).limit(10)
+cat_foods_length = Products.select().where(Products.category == str(CATEGORIES_ARRAY[int(answer)]))
 length = len(cat_foods_length)
 print(length)
 
-def list_food_from_category(cat_foods):
-	for index, food in enumerate(cat_foods):
-		print('{} - {} '.format(index, food.product_name))
-	food_selection = input('choose a product number or presss spacebar to see the other products => ')
-	return food_selection
+# arr = intro.list_datas(cat_foods, True)
+arr = intro.display(cat_foods , True)
+selected_product = intro.get_input("product")
 
-print(list_food_from_category(cat_foods))
+# product_description = Products.select().where(Products.product_name)
+print(arr[int(selected_product)])
+product_description = Products.select().where(Products.id == arr[int(selected_product)])
+# print(product_description)
+for i in product_description:
+	print(i.product_name)

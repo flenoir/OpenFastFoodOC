@@ -1,25 +1,53 @@
 import peewee
+# from constants import CATEGORIES_ARRAY
 
 # Connect to a MySQL database on network.
 db = peewee.MySQLDatabase('foodstuff', user='root', password='', host='localhost', port=3306)
 
 class Board:
 
-    def __init__(self,text1, text2, text3):
+    def __init__(self,text1):
         self.text1 = text1
-        self.text2 = text2
-        self.text3 = text3
+      
 
-    def display(self):
+    def display(self, data, bool=False):
         print("------------------------------------------------------------------")
         print("                  Bienvenue sur Food Swap                         ")
         print("------------------------------------------------------------------")
         print("             {}                 ".format(self.text1))
         print("                                                                  ")
-        print("           {}              ".format(self.text2))
-        print("           {}      ".format(self.text3))
-        print("                                                                  ")
-        print("------------------------------------------------------------------")
+        if bool == False:
+            for i,v in enumerate(data):
+                print("       {} - {}              ".format(i,v))
+            print("                                                                  ")
+            print("------------------------------------------------------------------")
+            
+        else:
+            ids_array =[]
+            for index, value in enumerate(data):
+                print("{} - {} and id is {} ".format(index, value.product_name, value.id))
+                ids_array.append(value.id)
+            # print(ids_array)
+            # return ids_array
+            print("                                                                  ")
+            print("------------------------------------------------------------------")
+            return ids_array
+    
+    def get_input(self, question):
+        var = input('select a {} :'.format(question))
+        return var
+
+    # def list_datas(self, datas, bool=False):
+    #     if bool == False:
+    #         for index, value in enumerate(datas):
+    #             print("{} - {} ".format(index, value))
+    #     else:
+    #         ids_array =[]
+    #         for index, value in enumerate(datas):
+    #             print("{} - {} and id is {} ".format(index, value.product_name, value.id))
+    #             ids_array.append(value.id)
+    #         # print(ids_array)
+    #         return ids_array
 
 
 # We define a first class for categories
