@@ -29,4 +29,7 @@ print(arr[int(selected_product)])
 product_description = Products.select().where(Products.id == arr[int(selected_product)])
 # print(product_description)
 for i in product_description:
-	print(i.product_name)
+	print("{} de la marque {}".format(i.product_name, i.brands))
+	print("description : {}".format(i.description))
+	print("le code de ce produit est : {}".format(i.product_code))
+	print("le score nutritionnnel de ce produit est : {}".format(i.nutriscore))

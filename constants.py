@@ -1,2 +1,2 @@
-CATEGORIES_ARRAY = ['petit-dejeuners', 'plats-prepares', 'snacks', 'biscuits-et-gateaux', 'pizzas', 'produits-laitiers', 'epicerie', 'desserts', 'charcuteries', 'cereales-et-derives' ]
+CATEGORIES_ARRAY = ['petit-dejeuners', 'plats-prepares', 'snacks-sales', 'biscuits-et-gateaux', 'pizzas', 'produits-laitiers', 'epicerie', 'desserts', 'charcuteries', 'cereales-et-derives' ]
 INTRO_TEXT  = ["Selectionnez un aliment à remplacer", "Consulter la liste de vos aliments remplacés"]
