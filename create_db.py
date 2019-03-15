@@ -32,12 +32,22 @@ def fill_db_from_categories(cat):
 		
 		# temp_var = requests.get("https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0={}&tagtype_0=labels&tag_contains_0=contains&tag_0=sans-gluten&tagtype_1=origins&tag_contains_1=contains&tag_1=france&sort_by=unique_scans_n&page_size=100&axis_x=energy&axis_y=products_n&action=display&json=1".format(value)).json()
 
+        # for x, i in enumerate(temp_var['products']):
+        #     try :
+        #         x = Products.create(product_name=i['product_name_fr'], brands=i['brands'], description=i['generic_name_fr'], product_url=i['url'] ,product_code=i['code'], product_image=i['image_ingredients_url'] , nutriscore=i['nutrition_grades'], stores=i['stores_tags'], category=str(value))
+        #         x.save()
+        #     except:
+        #         print("one item was not found")
+
+       
         for x, i in enumerate(temp_var['products']):
             try :
                 x = Products.create(product_name=i['product_name_fr'], brands=i['brands'], description=i['generic_name_fr'], product_url=i['url'] ,product_code=i['code'], product_image=i['image_ingredients_url'] , nutriscore=i['nutrition_grades'], stores=i['stores_tags'], category=str(value))
                 x.save()
-            except:
-                print("one item was not found")
+            # except:
+            #     print("one item was not found")
+            except KeyError as e:
+                print(e)
 
 
 fill_db_from_categories(categories_array)
