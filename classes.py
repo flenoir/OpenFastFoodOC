@@ -12,7 +12,7 @@ class Board:
 
     def display(self, data, bool=False):
         print("------------------------------------------------------------------")
-        print("                  Bienvenue sur Food Swap                         ")
+        print("                  Bienvenue sur Gluten Free Food Swap                         ")
         print("------------------------------------------------------------------")
         print("             {}                 ".format(self.text1))
         print("                                                                  ")
@@ -25,10 +25,8 @@ class Board:
         else:
             ids_array =[]
             for index, value in enumerate(data):
-                print("{} - {} and id is {} ".format(index, value.product_name, value.id))
-                ids_array.append(value.id)
-            # print(ids_array)
-            # return ids_array
+                print("{} - {} {} / {}".format(index, value.product_name, value.brands, value.quantity))
+                ids_array.append(value.id)            
             print("                                                                  ")
             print("------------------------------------------------------------------")
             return ids_array
@@ -37,17 +35,17 @@ class Board:
         var = input('select a {} :'.format(question))
         return var
 
-    # def list_datas(self, datas, bool=False):
-    #     if bool == False:
-    #         for index, value in enumerate(datas):
-    #             print("{} - {} ".format(index, value))
-    #     else:
-    #         ids_array =[]
-    #         for index, value in enumerate(datas):
-    #             print("{} - {} and id is {} ".format(index, value.product_name, value.id))
-    #             ids_array.append(value.id)
-    #         # print(ids_array)
-    #         return ids_array
+
+    def display_product(self, selected_product, arr):
+        product_description = Products.select().where(Products.id == arr[int(selected_product)])
+
+        for i in product_description:
+            print("{} de la marque {}".format(i.product_name, i.brands))
+            print("description : {}".format(i.description))
+            print("le code de ce produit est : {}".format(i.product_code))
+            print("le score nutritionnnel de ce produit est : {}".format(i.nutriscore))
+            print("Swap this product to a better one, press 's', return to products list, press 'r', and exit, press 'x'")
+            return selected_product, arr
 
 
 # We define a first class for categories
@@ -71,7 +69,9 @@ class Products(peewee.Model):
     product_image = peewee.CharField(100, null=True)
     nutriscore = peewee.CharField(1, null=True)
     stores = peewee.CharField(150, null=True)
-    category = peewee.CharField(30)
+    quantity = peewee.CharField(30, null=True)
+    # category = peewee.SmallIntegerField(null = True) # doit pointer sur l'Id (primary key) de la table categories 
+    category_id = peewee.ForeignKeyField(Categories, field="id", null = True)
 
     # we define the reference to the database and the database table name
     class Meta:

@@ -2,34 +2,63 @@ import requests
 from peewee import *
 from classes import Board, Categories, Products
 from constants import CATEGORIES_ARRAY, INTRO_TEXT
+import random
 
 intro = Board("Choisissez ce que vous voulez faire")
 
+
 intro.display(INTRO_TEXT)
 
-if intro.get_input("number") == str(0):
-	# intro.list_datas(CATEGORIES_ARRAY)
+
+# Select a new food or browse your replaced food list
+if intro.get_input("number") == str(0):	
+	#diisplay all categories
 	intro.display(CATEGORIES_ARRAY)
 else:
 	print("not 0")
 
+# select a category
 answer = intro.get_input("category")
 
-cat_foods = Products.select().where(Products.category == str(CATEGORIES_ARRAY[int(answer)])).limit(10)
-cat_foods_length = Products.select().where(Products.category == str(CATEGORIES_ARRAY[int(answer)]))
-length = len(cat_foods_length)
+# cat_foods = Products.select().where(Products.category == str(CATEGORIES_ARRAY[int(answer)])).limit(10)
+cat_foods = Products.select().where(Products.category_id == int(answer), Products.nutriscore != 'a').limit(10)
+cat_foods_substitute = Products.select().where(Products.category_id == int(answer), Products.nutriscore == 'a').limit(10)
+
+length = len(cat_foods_substitute)
 print(length)
 
-# arr = intro.list_datas(cat_foods, True)
-arr = intro.display(cat_foods , True)
-selected_product = intro.get_input("product")
+print(random.randint(0,length))
 
-# product_description = Products.select().where(Products.product_name)
-print(arr[int(selected_product)])
-product_description = Products.select().where(Products.id == arr[int(selected_product)])
-# print(product_description)
-for i in product_description:
-	print("{} de la marque {}".format(i.product_name, i.brands))
-	print("description : {}".format(i.description))
-	print("le code de ce produit est : {}".format(i.product_code))
-	print("le score nutritionnnel de ce produit est : {}".format(i.nutriscore))
+substitute = random.randint(0,length)
+sub_array = []
+
+for i,v in enumerate(cat_foods_substitute):
+	# print("{} - {}".format(i, v.product_name))
+	sub_array.append(v)
+
+
+
+loop = True
+
+while loop:
+
+	# display all products from selected category
+	arr = intro.display(cat_foods , True)
+
+	# select a product
+	selected_product = intro.get_input("product")
+
+	selection = intro.display_product(selected_product, arr)
+
+	response = intro.get_input("option")
+
+	if response == 'x':
+		loop = False
+	elif response == "s":
+		print("----------------------------------------------------------------------------------------------")
+		print("the substitution food  with a better nutriscore is : {} which has a nutriscore notation of '{}'".format(sub_array[substitute].product_name, sub_array[substitute].nutriscore))
+		loop = False
+
+		
+
+
