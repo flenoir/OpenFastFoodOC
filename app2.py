@@ -17,9 +17,9 @@ response2 = requests.get("https://fr.openfoodfacts.org/cgi/search.pl?action=proc
 # print(response2.json())
 
 for i in response2['products']:
-    try :
-        print("Le nom du produit est {} de la marque {}".format(i['product_name_fr'],i['brands']))
-        print("Le code du produit est {} et il a un score nutritionnel : {}".format(i['code'],i['nutrition_grades']))
+    try:
+        print("Le nom du produit est {} de la marque {}".format(i['product_name_fr'], i['brands']))
+        print("Le code du produit est {} et il a un score nutritionnel : {}".format(i['code'], i['nutrition_grades']))
     except:
         print("one item was not found")
 
@@ -36,7 +36,7 @@ for i in response2['products']:
 
 # # Connect to a MySQL database on network.
 # db = MySQLDatabase('foodstuff', user='root', password='', host='localhost', port=3306)
-						 
+					 
 # # select all elements on category table
 # categories = db.execute_sql("SELECT * from category;")
 

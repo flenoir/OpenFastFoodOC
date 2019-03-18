@@ -1,29 +1,28 @@
 import peewee
-# from constants import CATEGORIES_ARRAY
 
 # Connect to a MySQL database on network.
 db = peewee.MySQLDatabase('foodstuff', user='root', password='', host='localhost', port=3306)
 
+
 class Board:
 
-    def __init__(self,text1):
+    def __init__(self, text1):
         self.text1 = text1
       
-
     def display(self, data, bool=False):
         print("------------------------------------------------------------------")
         print("                  Bienvenue sur Gluten Free Food Swap                         ")
         print("------------------------------------------------------------------")
         print("             {}                 ".format(self.text1))
         print("                                                                  ")
-        if bool == False:
-            for i,v in enumerate(data):
+        if bool is False:
+            for i, v in enumerate(data):
                 print("       {} - {}              ".format(i,v))
             print("                                                                  ")
             print("------------------------------------------------------------------")
             
         else:
-            ids_array =[]
+            ids_array = []
             for index, value in enumerate(data):
                 print("{} - {} {} / {}".format(index, value.product_name, value.brands, value.quantity))
                 ids_array.append(value.id)            
@@ -32,10 +31,9 @@ class Board:
             return ids_array
     
     def get_input(self, question):
-        var = input('select a {} :'.format(question))
+        var = input('select a {} :'.format(question))      
         return var
-
-
+            
     def display_product(self, selected_product, arr):
         product_description = Products.select().where(Products.id == arr[int(selected_product)])
 
@@ -71,7 +69,7 @@ class Products(peewee.Model):
     stores = peewee.CharField(150, null=True)
     quantity = peewee.CharField(30, null=True)
     # category = peewee.SmallIntegerField(null = True) # doit pointer sur l'Id (primary key) de la table categories 
-    category_id = peewee.ForeignKeyField(Categories, field="id", null = True)
+    category_id = peewee.ForeignKeyField(Categories, field="id", null=True)
 
     # we define the reference to the database and the database table name
     class Meta:

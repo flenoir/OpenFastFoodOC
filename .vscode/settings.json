@@ -1,3 +1,7 @@
 {
-    "python.pythonPath": "C:\\Users\\Fabien\\.virtualenvs\\OC-25D6i97R\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\Fabien\\.virtualenvs\\OC-25D6i97R\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": false,
+    "python.linting.enabled": true,
+    "python.linting.pep8Enabled": true
 }
