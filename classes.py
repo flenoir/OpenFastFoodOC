@@ -75,3 +75,14 @@ class Products(peewee.Model):
     class Meta:
         database = db
         db_table = "products"
+
+# We define a db model called Products
+class Substitutes(peewee.Model):
+    # We specify the model fields
+    product_code = peewee.CharField(20, null=True)
+    food_id = peewee.ForeignKeyField(Products, field="id", null=True)
+
+    # we define the reference to the database and the database table name
+    class Meta:
+        database = db
+        db_table = "substitutes"

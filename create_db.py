@@ -1,5 +1,5 @@
 import requests
-from classes import Categories, Products
+from classes import Categories, Products, Substitutes
 from constants import CATEGORIES_ARRAY
 import peewee
 import re
@@ -10,6 +10,8 @@ db = peewee.MySQLDatabase('foodstuff', user='root', password='', host='localhost
 # The tables are created from a model with create_table()
 Categories.create_table()		 
 Products.create_table()
+Substitutes.create_table()
+
 
 # populate the Category table
 for item in CATEGORIES_ARRAY:

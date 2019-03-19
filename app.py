@@ -1,4 +1,4 @@
-from classes import Board, Products
+from classes import Board, Products, Substitutes
 from constants import CATEGORIES_ARRAY, INTRO_TEXT
 import random
 
@@ -56,4 +56,5 @@ while loop:
     elif response == "s":
         print("----------------------------------------------------------------------------------------------")
         print("the substitution food  with a better nutriscore is : {} which has a nutriscore notation of '{}'".format(sub_array[substitute].product_name, sub_array[substitute].nutriscore))
+        sub = Substitutes.create(product_code=sub_array[substitute].product_code, food_id=sub_array[substitute].id)
         loop = False
