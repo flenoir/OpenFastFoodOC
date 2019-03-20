@@ -2,23 +2,24 @@ from classes import Board, Products, Substitutes
 from constants import CATEGORIES_ARRAY, INTRO_TEXT
 import random
 
-intro = Board("Choisissez ce que vous voulez faire")
+intro = Board()
 
 
-intro.display(INTRO_TEXT)
+intro.display(INTRO_TEXT, "Choisissez ce que vous voulez faire")
 
 
 # Select a new food or browse your replaced food list
 if intro.get_input("number") == str(0):
-    intro.display(CATEGORIES_ARRAY)
+    intro.display(CATEGORIES_ARRAY, "Les categories sont :")
 else:
-    print("not 0")
+    substitute_list = Products.select().join(Substitutes).where(Products.id == Substitutes.food_id) 
+    intro.display(substitute_list, "Vos aliments dejà substitués sont : ", True)
 
 # select a category
 answer = "x"
 
 while answer.isdigit() is False:
-    print("This is not a number, please enter un number")
+    print("This is not a number, please select a category with a number")
     answer = intro.get_input("category")
 
 cat_foods = Products.select().where(Products.category_id == int(answer), Products.nutriscore != 'a').limit(10)
@@ -42,7 +43,7 @@ loop = True
 while loop:
 
     # display all products from selected category
-    arr = intro.display(cat_foods, True)
+    arr = intro.display(cat_foods, "Voici la liste des aliments de cette categorie :", True)
 
     # select a product
     selected_product = intro.get_input("product")

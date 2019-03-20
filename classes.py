@@ -6,14 +6,14 @@ db = peewee.MySQLDatabase('foodstuff', user='root', password='', host='localhost
 
 class Board:
 
-    def __init__(self, text1):
-        self.text1 = text1
+    def __init__(self):
+        pass
       
-    def display(self, data, bool=False):
+    def display(self, data, text, bool=False):
         print("------------------------------------------------------------------")
         print("                  Bienvenue sur Gluten Free Food Swap                         ")
         print("------------------------------------------------------------------")
-        print("             {}                 ".format(self.text1))
+        print("             {}                 ".format(text))
         print("                                                                  ")
         if bool is False:
             for i, v in enumerate(data):
