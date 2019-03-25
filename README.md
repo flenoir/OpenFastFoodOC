@@ -1,6 +1,6 @@
 # Project #5 - Open Food fact API
 
-  Lien Github : https://github.com/flenoir/mc_gyver_maze/
+  Lien Github : https://github.com/flenoir/OpenFastFoodOC
 
 ### Start of program
 
@@ -39,4 +39,4 @@ Optionally, you can remove this item from you personal list
   
   ### Exiting app
   
-   You can exit the program by combining CTRL + D
+   You can exit the program by hitting keystroke "x"
