@@ -9,17 +9,19 @@ intro.display(INTRO_TEXT, "Choisissez ce que vous voulez faire")
 
 
 # Select a new food or browse your replaced food list
-if intro.get_input("number") == str(0):
+if intro.get_input("number") == str(1):
     intro.display(CATEGORIES_ARRAY, "Les categories sont :")
 else:
     substitute_list = Products.select().join(Substitutes).where(Products.id == Substitutes.food_id) 
     intro.display(substitute_list, "Vos aliments dejà substitués sont : ", True)
 
 # select a category
-answer = "x"
+answer = "0"
 
-while answer.isdigit() is False:
-    print("This is not a number, please select a category with a number")
+if answer.isdigit() is False:
+    print("Ce n'est pas un chiffre, veuillez selectionner un chiffre")
+    answer = intro.get_input("category")
+else:
     answer = intro.get_input("category")
 
 cat_foods = Products.select().where(Products.category_id == int(answer), Products.nutriscore != 'a').limit(10)
@@ -48,6 +50,7 @@ while loop:
     # select a product
     selected_product = intro.get_input("product")
 
+    # diplay description of selected product
     selection = intro.display_product(selected_product, arr)
 
     response = intro.get_input("option")
@@ -56,6 +59,6 @@ while loop:
         loop = False
     elif response == "s":
         print("----------------------------------------------------------------------------------------------")
-        print("the substitution food  with a better nutriscore is : {} which has a nutriscore notation of '{}'".format(sub_array[substitute].product_name, sub_array[substitute].nutriscore))
+        print("L'aliment avec un meilleur score nutritionnel est : {} il a une note nutritionelle de '{}'.".format(sub_array[substitute].product_name, sub_array[substitute].nutriscore))
         sub = Substitutes.create(product_code=sub_array[substitute].product_code, food_id=sub_array[substitute].id)
         loop = False

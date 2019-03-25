@@ -6,12 +6,18 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 flake8 = "*"
+pydocstyle = "*"
+pep8 = "*"
 
 [packages]
 requests = "*"
 peewee = "*"
 flake8 = "*"
 pylint = "*"
+mysql-python = "*"
+pymysql = "*"
+mysqlclient = "==1.3.12"
+wheel = "*"
 
 [requires]
 python_version = "3.6.7"

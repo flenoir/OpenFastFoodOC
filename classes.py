@@ -17,13 +17,13 @@ class Board:
         print("                                                                  ")
         if bool is False:
             for i, v in enumerate(data):
-                print("       {} - {}              ".format(i,v))
+                print("       {} - {}              ".format(i+1,v))
             print("                                                                  ")
             print("------------------------------------------------------------------")
             
         else:
             ids_array = []
-            for index, value in enumerate(data):
+            for index, value in enumerate(data):                
                 print("{} - {} {} / {}".format(index, value.product_name, value.brands, value.quantity))
                 ids_array.append(value.id)            
             print("                                                                  ")
@@ -49,6 +49,7 @@ class Board:
 # We define a first class for categories
 class Categories(peewee.Model):
     # We specify model fields
+    id = peewee
     name = peewee.CharField(40)
 
     class Meta:
@@ -67,8 +68,7 @@ class Products(peewee.Model):
     product_image = peewee.CharField(100, null=True)
     nutriscore = peewee.CharField(1, null=True)
     stores = peewee.CharField(150, null=True)
-    quantity = peewee.CharField(30, null=True)
-    # category = peewee.SmallIntegerField(null = True) # doit pointer sur l'Id (primary key) de la table categories 
+    quantity = peewee.CharField(40, null=True)
     category_id = peewee.ForeignKeyField(Categories, field="id", null=True)
 
     # we define the reference to the database and the database table name
