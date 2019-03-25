@@ -1,10 +1,12 @@
-from classes import Board, Products, Substitutes
+from classes import Board
+from models import Products, Substitutes
 from constants import CATEGORIES_ARRAY, INTRO_TEXT
 import random
 
+# class instanciation
 intro = Board()
 
-
+# first display of console
 intro.display(INTRO_TEXT, "Choisissez ce que vous voulez faire")
 
 
@@ -24,14 +26,12 @@ if answer.isdigit() is False:
 else:
     answer = intro.get_input("category")
 
+# make db requests
 cat_foods = Products.select().where(Products.category_id == int(answer), Products.nutriscore != 'a').limit(10)
 cat_foods_substitute = Products.select().where(Products.category_id == int(answer), Products.nutriscore == 'a').limit(10)
 
-
+# select randomly a substitute food
 length = len(cat_foods_substitute)
-print(length)
-
-print(random.randint(0, length))
 
 substitute = random.randint(0, length)
 sub_array = []
@@ -39,7 +39,7 @@ sub_array = []
 for i, v in enumerate(cat_foods_substitute):
     sub_array.append(v)
 
-
+# start a loop on console display
 loop = True
 
 while loop:
@@ -50,15 +50,15 @@ while loop:
     # select a product
     selected_product = intro.get_input("product")
 
-    # diplay description of selected product
+    # display description of selected product
     selection = intro.display_product(selected_product, arr)
 
+    # ask for next action
     response = intro.get_input("option")
 
     if response == 'x':
         loop = False
-    elif response == "s":
-        print("----------------------------------------------------------------------------------------------")
-        print("L'aliment avec un meilleur score nutritionnel est : {} il a une note nutritionelle de '{}'.".format(sub_array[substitute].product_name, sub_array[substitute].nutriscore))
+    elif response == "s":  
+        intro.display_product(substitute, sub_array, True)
         sub = Substitutes.create(product_code=sub_array[substitute].product_code, food_id=sub_array[substitute].id)
         loop = False

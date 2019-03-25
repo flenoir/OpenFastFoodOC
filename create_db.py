@@ -1,5 +1,5 @@
 import requests
-from classes import Categories, Products, Substitutes
+from models import Categories, Products, Substitutes
 from constants import CATEGORIES_ARRAY
 import peewee
 import re
