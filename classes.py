@@ -46,3 +46,19 @@ class Board:
             if bool is False:
                 print("Pour substituer ce produit, tapez 's', retourner à la liste des produits, tapez 'r', et pour sortir, tapez 'x'")
             return selected_product, arr
+
+    def disp_args(self, *args):
+
+        for i in args:
+            print("#########################################################")
+            print("{} de la marque {}".format(i.product_name, i.brands))
+            print("---------------------------------------------------------")
+            print("description : {}".format(i.description))
+            print("le code de ce produit est : {}".format(i.product_code))
+            print("le score nutritionnnel de ce produit est : {}".format(i.nutriscore))
+            print("Vous pouvez trouver ce produit dans les magasins {}".format(i.stores))
+            print("l'url de ce produit est {}".format(i.product_url))
+            print("#########################################################")
+            if bool is False:
+                print("Pour substituer ce produit, tapez 's', retourner à la liste des produits, tapez 'r', et pour sortir, tapez 'x'")
+            # return args

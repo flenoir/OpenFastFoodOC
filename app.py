@@ -50,8 +50,12 @@ while loop:
     # select a product
     selected_product = intro.get_input("product")
 
+    product_description = Products.select().where(Products.id == arr[int(selected_product)])
+
     # display description of selected product
-    selection = intro.display_product(selected_product, arr)
+    # selection = intro.display_product(selected_product, arr)
+
+    sel2 = intro.disp_args(*product_description)
 
     # ask for next action
     response = intro.get_input("option")
